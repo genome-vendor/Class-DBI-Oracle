@@ -59,7 +59,7 @@ use strict;
 use base 'Class::DBI';
 
 use vars qw($VERSION);
-$VERSION = '0.5';
+$VERSION = '0.51';
 
 # Setup an alias if the tablename is an Oracle reserved word - 
 # for example if the class name is: user
@@ -121,13 +121,28 @@ sub set_up_table {
 	
 	$sth->finish();
 
+	# deal with old revisions
 	my $msg;
+	my @primary = ();
+
 	$msg = qq{has no primary key} unless $col->[0][1];
-	$msg = qq{has a composite primary key} if $col->[1][1];
+
+	# Class::DBI >= 0.93 can use multiple-primary-column keys.
+	if ($Class::DBI::VERSION >= 0.93) {
+
+		map { push @primary, $_->[0] if $_->[1] } @$col;
+
+	} else {
+
+		$msg = qq{has a composite primary key} if $col->[1][1];
+
+		push @primary, $col->[0][0];
+	}
+
 	_die('The "',$class->table,qq{" table $msg}) if $msg;
 
 	$class->columns(All => map {$_->[0]} @$col);
-	$class->columns(Primary => $col->[0][0]);
+	$class->columns(Primary => @primary);
 
 	# attempt to guess the sequence from the table name.
 	# this won't work if there is inconsistent naming.
