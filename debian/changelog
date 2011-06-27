@@ -1,0 +1,5 @@
+libclass-dbi-oracle-perl (0.51-1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- Randy Hancock <rhancock@>  Fri, 24 Jun 2011 13:13:39 -0500
