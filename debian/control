@@ -2,14 +2,14 @@ Source: libclass-dbi-oracle-perl
 Section: perl
 Priority: optional
 Build-Depends: debhelper (>= 7)
-Build-Depends-Indep: perl, perl/libclass-dbi-perl (>= 0.36)
+Build-Depends-Indep: perl, libclass-dbi-perl (>= 0.36)
 Maintainer: Randy Hancock <rhancock@>
 Standards-Version: 3.8.3
 Homepage: http://search.cpan.org/dist/Class-DBI-Oracle/
 
 Package: libclass-dbi-oracle-perl
 Architecture: all
-Depends: ${perl:Depends}, ${misc:Depends}, perl/libclass-dbi-perl (>= 0.36)
+Depends: ${perl:Depends}, ${misc:Depends}, libclass-dbi-perl (>= 0.36)
 Description: Extensions to Class::DBI for Oracle
  This is an extension to Class::DBI that currently implements:
  .
